@@ -543,7 +543,7 @@ const statusEl = document.getElementById('formStatus');
 const fallbackLink = document.getElementById('fallbackLink');
 
 function setError(id, on) {
-  document.getElementById(id).closest('.field').classList.toggle('invalid', on);
+  document.getElementById(id).closest('.field').classList.toggle('invalid', !!on);
 }
 
 form.addEventListener('submit', function (e) {
@@ -568,7 +568,7 @@ form.addEventListener('submit', function (e) {
   setError('english', !english);     if (!english) ok = false;
   const emailOk = !email || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   setError('email', !emailOk);       if (!emailOk) ok = false;
-  const cvTooBig = cvFile && cvFile.size > 10 * 1024 * 1024;
+  const cvTooBig = Boolean(cvFile && cvFile.size > 10 * 1024 * 1024);
   setError('cv', cvTooBig);          if (cvTooBig) ok = false;
 
   if (!ok) {
